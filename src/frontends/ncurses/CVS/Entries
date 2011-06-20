@@ -1,0 +1,16 @@
+/.cvsignore/1.1/Sun Aug  1 02:39:21 2004//TPRODUCTION_2_1
+/Makefile/1.28/Mon Aug 29 19:19:13 2005//TPRODUCTION_2_1
+/curses_bar.c/1.9/Fri Aug 26 22:44:37 2005//TPRODUCTION_2_1
+/curses_bar.h/1.5/Tue Apr 12 06:09:03 2005//TPRODUCTION_2_1
+/curses_form.c/1.14/Fri Aug 26 22:44:37 2005//TPRODUCTION_2_1
+/curses_form.h/1.4/Tue Feb  8 05:54:44 2005//TPRODUCTION_2_1
+/curses_util.c/1.9/Fri Jul 22 19:44:23 2005//TPRODUCTION_2_1
+/curses_util.h/1.6/Sat Jun 18 18:16:14 2005//TPRODUCTION_2_1
+/curses_widget.c/1.14/Fri Aug 26 22:44:37 2005//TPRODUCTION_2_1
+/curses_widget.h/1.5/Tue Feb  8 07:49:03 2005//TPRODUCTION_2_1
+/curses_xlat.c/1.22/Fri Aug 26 22:44:37 2005//TPRODUCTION_2_1
+/curses_xlat.h/1.3/Tue Feb  8 05:54:44 2005//TPRODUCTION_2_1
+/fred.txt/1.1/Fri Jul  9 23:25:41 2004//TPRODUCTION_2_1
+/main.c/1.25/Mon Jul 17 02:17:00 2006//TPRODUCTION_2_1
+/puffy.txt/1.1/Thu Sep  9 12:24:08 2004//TPRODUCTION_2_1
+D/po////

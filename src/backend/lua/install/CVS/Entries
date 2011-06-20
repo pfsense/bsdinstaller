@@ -1,0 +1,18 @@
+/100_welcome.lua/1.14/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/200_select_disk.lua/1.34/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/220_format_disk.lua/1.15/Fri Feb  3 22:54:13 2006//TPRODUCTION_2_1
+/250_partition_disk.lua/1.79/Wed Oct  5 21:29:03 2005//TPRODUCTION_2_1
+/270_install_bootblocks.lua/1.19/Mon Aug 29 18:30:31 2005//TPRODUCTION_2_1
+/300_select_part.lua/1.37/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/400_select_subparts.lua/1.50/Sat Aug 27 08:35:58 2005//TPRODUCTION_2_1
+/405_warn_omitted_subparts.lua/1.1/Sat Jul 23 21:35:46 2005//TPRODUCTION_2_1
+/407_create_subparts.lua/1.3/Sat Aug 27 19:42:10 2005//TPRODUCTION_2_1
+/410_select_additional_filesystems.lua/1.4/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/420_preselect_packages.lua/1.8/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/450_select_packages.lua/1.17/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/490_confirm_install_os.lua/1.2/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/500_install_os.lua/1.82/Thu Jul 27 21:47:52 2006//TPRODUCTION_2_1
+/800_finished.lua/1.16/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/900_reboot.lua/1.15/Sat Aug 13 18:46:09 2005//TPRODUCTION_2_1
+/main.lua/1.12/Fri Jul  8 20:18:20 2005//TPRODUCTION_2_1
+D

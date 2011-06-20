@@ -1,0 +1,11 @@
+/.cvsignore/1.1/Fri Aug 20 07:18:00 2004//TPRODUCTION_2_1
+/build.conf.defaults/1.10/Mon Aug 29 18:21:24 2005//TPRODUCTION_2_1
+/copy_ports_to_portsdir.sh/1.4/Thu Aug 25 23:51:40 2005//TPRODUCTION_2_1
+/create_installer_tarballs.sh/1.35/Thu Aug 18 04:11:33 2005//TPRODUCTION_2_1
+/install_installer_packages.sh/1.43/Mon Aug 29 18:21:24 2005//TPRODUCTION_2_1
+/install_x11_packages.sh/1.6/Mon Aug 29 18:21:24 2005//TPRODUCTION_2_1
+/make_installer_image.sh/1.6/Sat Aug 27 04:01:26 2005//TPRODUCTION_2_1
+/pver.conf/1.30/Thu Dec 22 20:15:51 2005//TPRODUCTION_2_1
+/remove_installer_packages.sh/1.4/Sat Jul 30 07:07:06 2005//TPRODUCTION_2_1
+/build_installer_packages.sh/1.40.2.1/Tue Sep 14 15:59:35 2010//TPRODUCTION_2_1
+D

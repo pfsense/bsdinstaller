@@ -1,0 +1,9 @@
+/100_set_root_password.lua/1.10/Thu Aug  4 22:00:40 2005//TPRODUCTION_2_1
+/200_add_user.lua/1.12/Thu Aug  4 22:00:40 2005//TPRODUCTION_2_1
+/300_set_timezone.lua/1.7/Thu Jun 16 01:07:30 2005//TPRODUCTION_2_1
+/350_set_datetime.lua/1.5/Sat Jun 18 00:52:07 2005//TPRODUCTION_2_1
+/400_change_console_settings.lua/1.8/Thu Aug  4 22:00:40 2005//TPRODUCTION_2_1
+/500_install_packages.lua/1.18/Fri Aug 26 04:25:24 2005//TPRODUCTION_2_1
+/550_remove_packages.lua/1.13/Tue Jun 14 20:49:27 2005//TPRODUCTION_2_1
+/main.lua/1.6/Fri Apr 22 04:57:07 2005//TPRODUCTION_2_1
+D
