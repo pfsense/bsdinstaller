@@ -208,7 +208,7 @@ PLIST_FILES+=	share/dfuibe_lua/main.lua \
 		share/dfuibe_lua/lib/menu.lua \
 		share/dfuibe_lua/lib/network.lua \
 		share/dfuibe_lua/lib/network_ui.lua \
-		share/dfuibe_lua/lib/Package.lua \
+		share/dfuibe_lua/lib/package.lua \
 		share/dfuibe_lua/lib/package_ui.lua \
 		share/dfuibe_lua/lib/storage.lua \
 		share/dfuibe_lua/lib/storage_ui.lua \
