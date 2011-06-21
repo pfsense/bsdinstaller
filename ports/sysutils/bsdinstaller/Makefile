@@ -201,12 +201,12 @@ PLIST_FILES+=	share/dfuibe_lua/main.lua \
 		share/dfuibe_lua/600_upgrade.lua \
 		share/dfuibe_lua/800_netboot.lua \
 		share/dfuibe_lua/950_reboot.lua \
-		share/dfuibe_lua/lib/Bitwise.lua \
-		share/dfuibe_lua/lib/CmdChain.lua \
+		share/dfuibe_lua/lib/bitwise.lua \
+		share/dfuibe_lua/lib/cmdchain.lua \
 		share/dfuibe_lua/lib/configvars.lua \
-		share/dfuibe_lua/lib/Flow.lua \
-		share/dfuibe_lua/lib/Menu.lua \
-		share/dfuibe_lua/lib/Network.lua \
+		share/dfuibe_lua/lib/flow.lua \
+		share/dfuibe_lua/lib/menu.lua \
+		share/dfuibe_lua/lib/network.lua \
 		share/dfuibe_lua/lib/network_ui.lua \
 		share/dfuibe_lua/lib/Package.lua \
 		share/dfuibe_lua/lib/package_ui.lua \
