@@ -108,6 +108,13 @@ local format_disk = function(step, dd)
 		return false
 	end
 
+	local cmdsGPT = CmdChain.new()
+	local disk = dd:get_name()
+	cmdsGPT:set_replacements{
+	    disk = disk
+	}
+	cmdsGPT:add("/usr/sbin/cleargpt.sh ${disk}");
+	cmdsGPT:execute()
 	dd:cmds_format(cmds)
 
 	local confirm = function()

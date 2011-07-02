@@ -12,7 +12,7 @@ return {
 	local datasets_list = {}
 	local dd
 	local disk_ref = {}	-- map from raw name to ref to Storage.Disk
-
+	
 	for dd in App.state.storage:get_disks() do
 		local raw_name = dd:get_raw_device_name()
 
@@ -30,9 +30,20 @@ return {
 		--
 		if dd:get_capacity():in_units("G") >= 8 then
 			dataset.packet = "Y"
+		end		
+
+		local cmdsGPT = CmdChain.new()
+		cmdsGPT:set_replacements{
+	    	raw_name = raw_name,
+			raw_disk = App.state.sel_disk
+		}
+		cmdsGPT:add("echo ${raw_name} ${raw_disk} > /tmp/debug");
+		cmdsGPT:execute()
+
+		if raw_name == App.state.sel_disk:get_name() then
+			table.insert(datasets_list, dataset)		
 		end
 
-		table.insert(datasets_list, dataset)
 	end
 
 	local response = App.ui:present({
