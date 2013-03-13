@@ -579,10 +579,7 @@ TargetSystem.new = function(tab)
 				-- dump device and record the choice for later
 				-- writing to rc.conf.
 				--
-				if App.conf.enable_crashdumps and
-				   spd:get_capacity():exceeds(
-				     App.state.storage:get_ram_capacity()
-				   ) then
+				if App.conf.enable_crashdumps then
 					spd:cmds_ensure_dev(cmds)
 					cmds:add("${root}${DUMPON} -v ${root}dev/${dev}")
 					App.state.rc_conf:set("dumpdev", "/dev/" ..

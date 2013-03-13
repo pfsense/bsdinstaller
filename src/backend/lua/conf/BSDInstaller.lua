@@ -222,13 +222,8 @@ upgrade_items = {
 mountpoints = function(part_megs, ram_megs)
 
 	--
-	-- First, calculate suggested swap size:
+	-- NOTE: Minidumps require at least 64MB
 	--
-	local swap_megs = 2 * ram_megs
-	if ram_megs > (part_megs / 2) or part_megs < 4096 then
-		swap_megs = ram_megs
-	end
-	swap = tostring(swap_megs) .. "M"
 
         --
         -- The megabytes available on disk for non-swap use.
@@ -244,7 +239,7 @@ mountpoints = function(part_megs, ram_megs)
 	elseif avail_megs < 523 then
 		return {
 			{ mountpoint = "/",	capstring = "70M" },
-			{ mountpoint = "swap",	capstring = swap },
+			{ mountpoint = "swap",	capstring = "64M" },
 			{ mountpoint = "/var",	capstring = "32M" },
 			{ mountpoint = "/tmp",	capstring = "32M" },
 			{ mountpoint = "/usr",	capstring = "174M" },
@@ -253,7 +248,7 @@ mountpoints = function(part_megs, ram_megs)
 	elseif avail_megs < 1024 then
 		return {
 			{ mountpoint = "/",	capstring = "96M" },
-			{ mountpoint = "swap",	capstring = swap },
+			{ mountpoint = "swap",	capstring = "64M" },
 			{ mountpoint = "/var",	capstring = "64M" },
 			{ mountpoint = "/tmp",	capstring = "64M" },
 			{ mountpoint = "/usr",	capstring = "256M" },
@@ -262,7 +257,7 @@ mountpoints = function(part_megs, ram_megs)
 	elseif avail_megs < 4096 then
 		return {
 			{ mountpoint = "/",	capstring = "128M" },
-			{ mountpoint = "swap",	capstring = swap },
+			{ mountpoint = "swap",	capstring = "128M" },
 			{ mountpoint = "/var",	capstring = "128M" },
 			{ mountpoint = "/tmp",	capstring = "128M" },
 			{ mountpoint = "/usr",	capstring = "512M" },
@@ -271,7 +266,7 @@ mountpoints = function(part_megs, ram_megs)
 	elseif avail_megs < 10240 then
 		return {
 			{ mountpoint = "/",	capstring = "256M" },
-			{ mountpoint = "swap",	capstring = swap },
+			{ mountpoint = "swap",	capstring = "256M" },
 			{ mountpoint = "/var",	capstring = "256M" },
 			{ mountpoint = "/tmp",	capstring = "256M" },
 			{ mountpoint = "/usr",	capstring = "3G" },
@@ -280,7 +275,7 @@ mountpoints = function(part_megs, ram_megs)
 	else
 		return {
 			{ mountpoint = "/",	capstring = "256M" },
-			{ mountpoint = "swap",	capstring = swap },
+			{ mountpoint = "swap",	capstring = "256M" },
 			{ mountpoint = "/var",	capstring = "256M" },
 			{ mountpoint = "/tmp",	capstring = "256M" },
 			{ mountpoint = "/usr",	capstring = "8G" },
