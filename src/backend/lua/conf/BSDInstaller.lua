@@ -228,7 +228,7 @@ mountpoints = function(part_megs, ram_megs)
         --
         -- The megabytes available on disk for non-swap use.
         --
-        local avail_megs = part_megs - swap_megs
+        local avail_megs = part_megs
 
 	--
 	-- Now, based on the capacity of the partition,
