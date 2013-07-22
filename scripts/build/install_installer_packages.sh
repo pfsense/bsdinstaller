@@ -48,6 +48,7 @@ if [ "X$INSTALL_DFUIFE_QT" = "XYES" ]; then
 			    qt-${QT_VER}
 			    dfuife_qt-${DFUIFE_QT_VER}${PVERSUFFIX}"
 	WITH_X11="YES"
+	export options_UNSET="${options_UNSET} X11 "
 fi
 
 if [ "X$WITH_X11" = "XYES" ]; then

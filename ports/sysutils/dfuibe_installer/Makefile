@@ -9,10 +9,12 @@ CATEGORIES=	sysutils
 DISTNAME=	${PORTNAME}-${PORTVERSION}
 WRKSRC=		work/installer
 
+.include <bsd.port.options.mk>
+
 LIB_DEPENDS=	aura.3:${PORTSDIR}/devel/libaura \
 		dfui.4:${PORTSDIR}/sysutils/libdfui \
 		installer.5:${PORTSDIR}/sysutils/libinstaller
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 LIB_DEPENDS:=	${LIB_DEPENDS} \
 		intl.9:${PORTSDIR}/devel/gettext
 .endif
@@ -22,7 +24,7 @@ COMMENT=	DFUI BSD Installer backend
 
 SHAREDIR=	${LOCALBASE}/share/dfuibe_installer
 
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 LOCALEDIR=	${LOCALBASE}/share/locale
 LANGUAGES=	ru
 .endif
@@ -30,7 +32,7 @@ LANGUAGES=	ru
 PLIST_FILES=	sbin/dfuibe_installer \
 		share/dfuibe_installer/cmdnames.conf
 
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_installer.mo
 .endif
 

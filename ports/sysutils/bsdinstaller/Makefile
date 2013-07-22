@@ -9,7 +9,11 @@ CATEGORIES=	sysutils
 DISTNAME=	${PORTNAME}-${PORTVERSION}
 WRKSRC=		work/installer/src
 
-.if defined(WITH_NLS)
+MAKE_JOBS_UNSAFE=yes
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MNLS}
 LIB_DEPENDS=	intl.9:${PORTSDIR}/devel/gettext
 .endif
 
@@ -17,7 +21,7 @@ MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	BSD Installer mega-package
 
 # XXX Not sure if this should be LOCALBASE or PREFIX... probably LOCALBASE?
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 LOCALEDIR=	${LOCALBASE}/share/locale
 LANGUAGES=	ru
 ALL_TARGET=	nls
@@ -25,38 +29,30 @@ ALL_TARGET=	nls
 MAKE_ARGS+=	LOCALEDIR="" NLS_CFLAGS="" NLS_LDFLAGS=""
 .endif
 
-.if defined(WITH_QT)
-USE_QT_VER=	3
-.endif
-
 DFUIBE_LUA_DIR=	${PREFIX}/share/dfuibe_lua
 
 # Make it so that we don't have to build the parts we're not installing...
-.if defined(WITH_QT)
-MAKE_ARGS+= BUILD_QT_FRONTEND=true
-.else
 MAKE_ARGS+= BUILD_QT_FRONTEND=false
-.endif
 
-.if defined(WITH_CGI)
+.if ${PORT_OPTIONS:MCGI}
 MAKE_ARGS+= BUILD_CGI_FRONTEND=true
 .else
 MAKE_ARGS+= BUILD_CGI_FRONTEND=false
 .endif
 
-.if defined(WITH_CURSES)
+.if ${PORT_OPTIONS:MCURSES}
 MAKE_ARGS+= BUILD_NCURSES_FRONTEND=true
 .else
 MAKE_ARGS+= BUILD_NCURSES_FRONTEND=false
 .endif
 
-.if defined(WITH_C_BACKEND)
+.if ${PORT_OPTIONS:MC_BACKEND}
 MAKE_ARGS+= BUILD_C_BACKEND=true
 .else
 MAKE_ARGS+= BUILD_C_BACKEND=false
 .endif
 
-.if defined(WITH_LUA_BACKEND)
+.if ${PORT_OPTIONS:MLUA_BACKEND}
 MAKE_ARGS+= BUILD_LUA_BACKEND=true
 .else
 MAKE_ARGS+= BUILD_LUA_BACKEND=false
@@ -90,7 +86,7 @@ PLIST_FILES+=	lib/libdfui.a			\
 		include/dfui/system.h
 
 # libinstaller
-.if defined(WITH_C_BACKEND)
+.if ${PORT_OPTIONS:MC_BACKEND}
 PLIST_FILES+=	lib/libinstaller.a		\
 		lib/libinstaller.so		\
 		lib/libinstaller.so.5		\
@@ -103,16 +99,16 @@ PLIST_FILES+=	lib/libinstaller.a		\
 .endif
 
 # dfuife_curses
-.if defined(WITH_CURSES)
+.if ${PORT_OPTIONS:MCURSES}
 PLIST_FILES+=	sbin/dfuife_curses	\
 		share/dfuife_curses/fred.txt
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuife_curses.mo
 .endif
 .endif
 
 # dfuife_cgi
-.if defined(WITH_CGI)
+.if ${PORT_OPTIONS:MCGI}
 PLIST_FILES+=	www/dfuife.cgi		\
 		www/dfly-pg.gif		\
 		www/fred-bg.gif		\
@@ -122,22 +118,17 @@ PLIST_FILES+=	www/dfuife.cgi		\
 		www/index.html
 .endif
 
-# dfuife_qt
-.if defined(WITH_QT)
-PLIST_FILES+=	sbin/dfuife_qt
-.endif
-
 # dfuibe_installer
-.if defined(WITH_C_BACKEND)
+.if ${PORT_OPTIONS:MC_BACKEND}
 PLIST_FILES+=	sbin/dfuibe_installer \
 		share/dfuibe_installer/cmdnames.conf
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_installer.mo
 .endif
 .endif
 
 # lua50 - maybe should go into libexec.
-.if defined(WITH_LUA_BACKEND)
+.if ${PORT_OPTIONS:MLUA_BACKEND}
 PLIST_FILES+=	lib/liblua50.so		\
 		lib/liblualib50.so	\
 		bin/lua50		\
@@ -157,7 +148,7 @@ PLIST_FILES+=	lib/lua/5.0/lpty.so \
 PLIST_FILES+=	share/lua/5.0/app.lua
 
 # lua50-gettext
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	lib/lua/5.0/lgettext.so \
 		share/lua/5.0/gettext.lua
 .endif
@@ -189,7 +180,7 @@ PLIST_FILES+=	lib/lua/5.0/lsocket.so		\
 PLIST_FILES+=	share/lua/5.0/transceiver.lua
 
 # lua50-curses
-.if defined(WITH_CURSES)
+.if ${PORT_OPTIONS:MCURSES}
 PLIST_FILES+=	lib/lua/5.0/lcurses.so \
 		share/lua/5.0/curses.lua
 .endif
@@ -270,7 +261,7 @@ PLIST_FILES+=	share/dfuibe_lua/main.lua \
 		share/dfuibe_lua/upgrade/600_unmount_target_system.lua \
 		share/dfuibe_lua/netboot/main.lua \
 		share/dfuibe_lua/netboot/500_setup_server.lua
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_lua.mo
 .endif
 .endif # WITH_LUA
@@ -312,7 +303,7 @@ do-install:
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/dump.h ${PREFIX}/include/dfui/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/lang.h ${PREFIX}/include/dfui/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/system.h ${PREFIX}/include/dfui/
-.if defined(WITH_C_BACKEND)
+.if ${PORT_OPTIONS:MC_BACKEND}
 	echo "Installing libinstaller..."
 	${MKDIR} -p ${PREFIX}/include/installer
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/libinstaller.a ${PREFIX}/lib/
@@ -325,19 +316,19 @@ do-install:
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/package.h ${PREFIX}/include/installer/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/uiutil.h ${PREFIX}/include/installer/
 .endif
-.if defined(WITH_CURSES)
+.if ${PORT_OPTIONS:MCURSES}
 	echo "Installing dfuife_curses..."
 	${MKDIR} -p ${PREFIX}/share/dfuife_curses
 	${INSTALL_PROGRAM} -o root -g wheel ${WRKSRC}/frontends/ncurses/dfuife_curses ${PREFIX}/sbin/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/frontends/ncurses/fred.txt ${PREFIX}/share/dfuife_curses/
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 	for _language in ${LANGUAGES}; do \
 		${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/frontends/ncurses/po/$${_language}.mo \
 		    ${LOCALEDIR}/$${_language}/LC_MESSAGES/dfuife_curses.mo; \
 	done
 .endif
 .endif
-.if defined(WITH_CGI)
+.if ${PORT_OPTIONS:MCGI}
 	echo "Installing dfuife_cgi..."
 	${MKDIR} -p ${PREFIX}/www
 	${INSTALL_PROGRAM} ${WRKSRC}/frontends/cgi/dfuife.cgi ${PREFIX}/www
@@ -348,24 +339,19 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfuife.js ${PREFIX}/www
 	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/index.html ${PREFIX}/www
 .endif
-# dfuife_qt
-.if defined(WITH_QT)
-	echo "Installing dfuife_qt..."
-	${INSTALL_PROGRAM} -o root -g wheel -m 555 ${WRKSRC}/frontends/cgi/dfuife_qt ${PREFIX}/sbin
-.endif
-.if defined(WITH_C_BACKEND)
+.if ${PORT_OPTIONS:MC_BACKEND}
 	echo "Installing dfuibe_installer..."
 	${INSTALL_PROGRAM} -s -o root -g wheel -m 555 ${WRKSRC}/backend/installer/dfuibe_installer ${PREFIX}/sbin
 	${MKDIR} -p ${PREFIX}/share/dfuibe_installer
 	${INSTALL_DATA} -o root -g wheel -m 555 ${WRKSRC}/backend/installer/conf/cmdnames.conf ${PREFIX}/share/dfuibe_installer
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 	for _language in ${LANGUAGES}; do \
 		${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/installer/po/$${_language}.mo \
 		    ${LOCALEDIR}/$${_language}/LC_MESSAGES/dfuibe_installer.mo; \
 	done
 .endif
 .endif
-.if defined(WITH_LUA_BACKEND)
+.if ${PORT_OPTIONS:MLUA_BACKEND}
 	echo "Installing lua50..."
 	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/platform/lua/lib/liblua50.so ${PREFIX}/lib/
 	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/platform/lua/lib/liblualib50.so ${PREFIX}/lib/
@@ -398,12 +384,12 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/lib/lua/luasocket/lua/*.lua ${PREFIX}/share/lua/5.0/
 	echo "Installing lua50-transceiver..."
 	${INSTALL_DATA} ${WRKSRC}/lib/lua/transceiver/transceiver.lua ${PREFIX}/share/lua/5.0/
-.if defined(WITH_CURSES)
+.if ${PORT_OPTIONS:MCURSES}
 	echo "Installing lua50-lcurses..."
 	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/lcurses/lcurses.so ${PREFIX}/lib/lua/5.0
 	${INSTALL_DATA} ${WRKSRC}/lib/lua/lcurses/curses.lua ${PREFIX}/share/lua/5.0/
 .endif
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 	echo "Installing lua50-gettext..."
 	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/gettext/lgettext.so ${PREFIX}/lib/lua/5.0/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/gettext/gettext.lua ${PREFIX}/share/lua/5.0/
@@ -427,7 +413,7 @@ do-install:
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/configure/menu/*.lua ${DFUIBE_LUA_DIR}/configure/menu/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/upgrade/*.lua ${DFUIBE_LUA_DIR}/upgrade/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/netboot/*.lua ${DFUIBE_LUA_DIR}/netboot/
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 	for _language in ${LANGUAGES}; do \
 		${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/po/$${_language}.mo \
 		    ${LOCALEDIR}/$${_language}/LC_MESSAGES/dfuibe_lua.mo; \

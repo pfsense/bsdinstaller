@@ -21,30 +21,30 @@ INSTALL_DFUIFE_QT=${INSTALL_DFUIFE_QT:-NO}	# build & install Qt frontend
 INSTALL_DFUIBE_LUA=${INSTALL_DFUIBE_LUA:-NO}	# build & install Lua backend
 INSTALL_DFUIBE_INSTALLER=${INSTALL_DFUIBE_INSTALLER:-YES} # ditto C backend
 
+export options_UNSET="${options_UNSET} NLS X11 "
 WITH_NLS=${WITH_NLS:-NO}			# build pkgs with i18n
 WITH_X11=${WITH_X11:-NO}			# build X11 support pkgs
 
+
+export options_SET="${options_SET} CURSES CGI "
 WITH_CURSES_DEF="WITH_CURSES=YES"
-
 WITH_CGI_DEF="WITH_CGI=YES"
-
-WITH_QT_DEF=""
-if [ "X$INSTALL_DFUIFE_QT" = "XYES" ]; then
-	WITH_QT_DEF="WITH_QT=YES"
-fi
 
 WITH_LUA_BACKEND_DEF=""
 if [ "X$INSTALL_DFUIBE_LUA" = "XYES" ]; then
+	export options_SET="${options_SET} LUA_BACKEND "
 	WITH_LUA_BACKEND_DEF="WITH_LUA_BACKEND=YES"
 fi
 
 WITH_C_BACKEND_DEF=""
 if [ "X$INSTALL_DFUIBE_INSTALLER" = "XYES" ]; then
+	export options_SET="${options_SET} C_BACKEND "
 	WITH_C_BACKEND_DEF="WITH_C_BACKEND=YES"
 fi
 
 WITH_NLS_DEF=""
 if [ "X$WITH_NLS" = "XYES" ]; then
+	export options_SET="${options_SET} NLS "
 	WITH_NLS_DEF="WITH_NLS=YES"
 fi
 

@@ -9,12 +9,14 @@ CATEGORIES=	sysutils
 DISTNAME=	${PORTNAME}-${PORTVERSION}
 WRKSRC=		work/lua
 
+.include <bsd.port.options.mk>
+
 LIB_DEPENDS=	lua50.5:${PORTSDIR}/lang/lua50
 
 RUN_DEPENDS=	${LOCALBASE}/lib/lua/5.0/lpty.so:${PORTSDIR}/devel/lua50-pty \
 		${LOCALBASE}/lib/lua/5.0/ldfui.so:${PORTSDIR}/devel/lua50-dfui \
 		${LOCALBASE}/share/lua/5.0/app.lua:${PORTSDIR}/devel/lua50-app
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 RUN_DEPENDS:=	${RUN_DEPENDS} \
 		${LOCALBASE}/lib/lua/5.0/lgettext.so:${PORTSDIR}/devel/lua50-gettext
 .endif
@@ -24,7 +26,7 @@ COMMENT=	DFUI Lua backend
 
 DFUIBE_LUA_DIR=	${LOCALBASE}/share/dfuibe_lua
 
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 LOCALEDIR=	/usr/local/share/locale
 LANGUAGES=	ru
 .endif
@@ -111,7 +113,7 @@ PLIST_FILES=	share/dfuibe_lua/main.lua \
 		share/dfuibe_lua/netboot/main.lua \
 		share/dfuibe_lua/netboot/500_setup_server.lua
 
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_lua.mo
 .endif
 
@@ -147,7 +149,7 @@ do-install:
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/configure/menu/*.lua ${DFUIBE_LUA_DIR}/configure/menu/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/upgrade/*.lua ${DFUIBE_LUA_DIR}/upgrade/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/netboot/*.lua ${DFUIBE_LUA_DIR}/netboot/
-.if defined(WITH_NLS)
+.if ${PORT_OPTIONS:MNLS}
 	for _language in ${LANGUAGES}; do \
 		(cd ${WRKSRC}/po && msgfmt -o $${_language}.mo $${_language}); \
 		${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/po/$${_language}.mo \
