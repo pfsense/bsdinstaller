@@ -24,6 +24,7 @@ PLIST_FILES=	sbin/dfuife_curses share/dfuife_curses/fred.txt
 .if defined(WITH_NLS)
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuife_curses.mo
 .endif
+NO_STAGE=	yes
 
 .if defined(WITH_NLS)
 LOCALEDIR=	${LOCALBASE}/share/locale

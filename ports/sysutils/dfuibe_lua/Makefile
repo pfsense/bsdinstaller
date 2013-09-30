@@ -25,6 +25,7 @@ MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	DFUI Lua backend
 
 DFUIBE_LUA_DIR=	${LOCALBASE}/share/dfuibe_lua
+NO_STAGE=	yes
 
 .if ${PORT_OPTIONS:MNLS}
 LOCALEDIR=	/usr/local/share/locale

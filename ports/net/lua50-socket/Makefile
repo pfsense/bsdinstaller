@@ -25,6 +25,7 @@ PLIST_FILES=	lib/lua/5.0/lsocket.so		\
 		share/lua/5.0/url.lua
 
 USE_GMAKE=	YES
+NO_STAGE=	yes
 MAKEFILE=	makefile.Linux
 
 do-install:

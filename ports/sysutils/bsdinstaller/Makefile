@@ -33,6 +33,7 @@ MAKE_ARGS+=	LOCALEDIR="" NLS_CFLAGS="" NLS_LDFLAGS=""
 .endif
 
 DFUIBE_LUA_DIR=	${PREFIX}/share/dfuibe_lua
+NO_STAGE=	yes
 
 # Make it so that we don't have to build the parts we're not installing...
 MAKE_ARGS+= BUILD_QT_FRONTEND=false

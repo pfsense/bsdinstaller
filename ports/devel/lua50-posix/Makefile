@@ -16,6 +16,7 @@ RUN_DEPENDS=	${LOCALBASE}/bin/lua50c51:${PORTSDIR}/devel/lua50-compat51
 MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	POSIX bindings for Lua 5.0.x
 
+NO_STAGE=	yes
 PLIST_FILES=	lib/lua/5.0/lposix.so	\
 		share/lua/5.0/posix.lua
 

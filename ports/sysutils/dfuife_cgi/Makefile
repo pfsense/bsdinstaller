@@ -22,6 +22,7 @@ PLIST_FILES=	www/dfuife.cgi		\
 		www/dfuife.css		\
 		www/dfuife.js		\
 		www/index.html
+NO_STAGE=	yes
 
 do-fetch:
 	@if [ ! -f ${_DISTDIR}${DISTNAME}${EXTRACT_SUFX} ]; then		\

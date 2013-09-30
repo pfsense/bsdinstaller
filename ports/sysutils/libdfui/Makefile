@@ -14,6 +14,7 @@ LIB_DEPENDS=	aura.3:${PORTSDIR}/devel/libaura
 MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	Abstract user interface protocol library
 
+NO_STAGE=	yes
 PLIST_FILES=	lib/libdfui.a			\
 		lib/libdfui.so			\
 		lib/libdfui.so.4		\

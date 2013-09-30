@@ -31,6 +31,7 @@ LANGUAGES=	ru
 
 PLIST_FILES=	sbin/dfuibe_installer \
 		share/dfuibe_installer/cmdnames.conf
+NO_STAGE=	yes
 
 .if ${PORT_OPTIONS:MNLS}
 PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_installer.mo

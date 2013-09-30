@@ -24,6 +24,7 @@ PLIST_FILES=	lib/libinstaller.a		\
 		include/installer/functions.h	\
 		include/installer/package.h	\
 		include/installer/uiutil.h
+NO_STAGE=	yes
 
 do-fetch:
 	@if [ ! -f ${_DISTDIR}${DISTNAME}${EXTRACT_SUFX} ]; then		\

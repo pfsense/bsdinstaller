@@ -20,6 +20,7 @@ PLIST_FILES=	lib/libaura.a			\
 		include/aura/fspred.h		\
 		include/aura/popen.h		\
 		include/aura/mem.h
+NO_STAGE=	yes
 
 do-fetch:
 	@if [ ! -f ${_DISTDIR}${DISTNAME}${EXTRACT_SUFX} ]; then		\

@@ -17,6 +17,7 @@ PLIST_FILES=	share/lua/5.0/compat-5.1.lua		\
 		lib/lua/${DISTNAME}/compat-5.1.c	\
 		lib/lua/${DISTNAME}/compat-5.1.h	\
 		bin/lua50c51
+NO_STAGE=	yes
 
 do-build:
 	@echo "Nothing to build."

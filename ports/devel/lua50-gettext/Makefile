@@ -19,6 +19,7 @@ COMMENT=	Gettext binding for Lua 5.0.x
 
 PLIST_FILES=	lib/lua/5.0/lgettext.so \
 		share/lua/5.0/gettext.lua
+NO_STAGE=	yes
 
 do-fetch:
 	@if [ ! -f ${_DISTDIR}${DISTNAME}${EXTRACT_SUFX} ]; then		\

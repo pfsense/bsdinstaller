@@ -16,6 +16,7 @@ USE_QT_VER=	3
 MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	DFUI Qt frontend
 
+NO_STAGE=	yes
 PLIST_FILES=	sbin/dfuife_qt
 
 do-fetch:

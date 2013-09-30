@@ -16,6 +16,7 @@ MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	Curses binding for Lua 5.0.x
 
 PLIST_FILES=	lib/lua/5.0/lcurses.so
+NO_STAGE=	yes
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/lcurses.so ${PREFIX}/lib/lua/5.0

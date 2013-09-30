@@ -22,6 +22,7 @@ IGNOREFILES=	notes.html
 
 GNU_CONFIGURE=	yes
 USE_REINPLACE=	yes
+NO_STAGE=	yes
 
 MAN1=		makeweb.1 htpasswd.1
 MAN8=		thttpd.8 redirect.8 ssi.8 syslogtocern.8

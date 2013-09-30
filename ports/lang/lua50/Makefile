@@ -19,6 +19,7 @@ USE_REINPLACE=	yes
 ALL_TARGET=	all so
 INSTALL_TARGET=	install soinstall
 INSTALLS_SHLIB=	YES
+NO_STAGE=	yes
 
 do-configure:
 	${REINPLACE_CMD} \

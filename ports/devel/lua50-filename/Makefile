@@ -18,6 +18,7 @@ MAINTAINER=	cpressey@catseye.mine.nu
 COMMENT=	Filename-manipulating functions for Lua 5.0.x
 
 PLIST_FILES=	share/lua/5.0/filename.lua
+NO_STAGE=	yes
 
 do-fetch:
 	@if [ ! -f ${_DISTDIR}${DISTNAME}${EXTRACT_SUFX} ]; then		\

@@ -17,6 +17,7 @@ COMMENT=	Portable File System routines for Lua 5.0.x
 
 PLIST_FILES=	lib/lua/5.0/liblfs.1.0.so	\
 		lib/lua/5.0/lfs.so
+NO_STAGE=	yes
 
 ALL_TARGET=	lib
 
