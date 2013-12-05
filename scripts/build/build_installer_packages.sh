@@ -87,6 +87,7 @@ else
     	pkg delete -yf 'thttpd-notimeout-*'
     	pkg delete -yf 'lua50-*'
     	pkg delete -yf 'bsdinstaller-*'" 
+fi
 
 if [ "X$REMOVEOLDPKGS" = "XYES" ]; then
 	rm -rf $PACKAGESDIR/libaura-*.????.????.t?z
