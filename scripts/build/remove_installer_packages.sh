@@ -26,9 +26,10 @@ INSTALLER_PACKAGES='libaura-*
 		    bsdinstaller-*'
 
 for PKG in $INSTALLER_PACKAGES; do
-	if [ $FREEBSD_VERSION < 9 ]; then
+	if [ $FREEBSD_VERSION -lt 9 ]; then
 		pkg_delete -f $PKG || true
 	else
 		pkg delete -yf $PKG
+	fi
 done
 

@@ -71,7 +71,7 @@ rebuild_port()
 	make clean && rm -rf work
 }
 
-if [ $FREEBSD_VERSION < 9 ]; then
+if [ $FREEBSD_VERSION -lt 9 ]; then
 	su root -c \
    	"pkg_delete -f 'libaura-*'
     	pkg_delete -f 'libinstaller-*'
