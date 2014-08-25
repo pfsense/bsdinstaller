@@ -65,9 +65,9 @@ rebuild_port()
 	make makesum				&& \
 	make patch				&& \
 	chmod -R 777 work			&& \
-	make options_UNSET="${options_UNSET}" options_SET="${options_SET}" $WITH_NLS_DEF $WITH_CURSES_DEF $WITH_CGI_DEF $WITH_QT_DEF \
+	make -DBATCH options_UNSET="${options_UNSET}" options_SET="${options_SET}" $WITH_NLS_DEF $WITH_CURSES_DEF $WITH_CGI_DEF $WITH_QT_DEF \
 	     $WITH_LUA_BACKEND_DEF $WITH_C_BACKEND_DEF $WITH_DEBUG_DEF \
-	     $PORTS_FLAGS package FORCE_PKG_REGISTER=yes && \
+	     $PORTS_FLAGS build package deinstall install FORCE_PKG_REGISTER=yes && \
 	make clean && rm -rf work
 }
 
