@@ -16,6 +16,9 @@ OPTIONS_DEFAULT=	NLS CGI CURSES LUA_BACKEND
 
 USE_LDCONFIG=	yes
 
+# Used by copy script
+INTERNAL=	YES
+
 .include <bsd.port.pre.mk>
 
 .if ${MACHINE_ARCH:L} == "amd64"
