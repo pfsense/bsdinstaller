@@ -1,30 +1,31 @@
-# New ports collection makefile for:	bsdinstaller
-# Date created:			July 24, 2005
-# Whom:				Chris Pressey <cpressey@catseye.mine.nu>
+# Created by: Chris Pressey <cpressey@catseye.mine.nu>
+# $FreeBSD$
 
 PORTNAME=	bsdinstaller
-PORTVERSION=    2.0
-INTERNAL=	YES
+PORTVERSION=	2.0
 CATEGORIES=	sysutils
-DISTNAME=	${PORTNAME}-${PORTVERSION}
-WRKSRC=		work/installer/src
 
+MAINTAINER=	cpressey@catseye.mine.nu
+COMMENT=	BSD Installer mega-package
+
+WRKSRC=		${WRKDIR}/installer/src
 MAKE_JOBS_UNSAFE=yes
 
 OPTIONS_DEFINE=		NLS CGI CURSES C_BACKEND LUA_BACKEND
 OPTIONS_DEFAULT=	NLS CGI CURSES LUA_BACKEND
 
-.include <bsd.port.options.mk>
+USE_LDCONFIG=	yes
 
-.if ${PORT_OPTIONS:MNLS}
-LIB_DEPENDS=	intl.9:${PORTSDIR}/devel/gettext
+.include <bsd.port.pre.mk>
+
+.if ${MACHINE_ARCH:L} == "amd64"
+CFLAGS+=	-fPIC
 .endif
 
-MAINTAINER=	cpressey@catseye.mine.nu
-COMMENT=	BSD Installer mega-package
+.if ${PORT_OPTIONS:MNLS}
+USES+=		gettext
 
 # XXX Not sure if this should be LOCALBASE or PREFIX... probably LOCALBASE?
-.if ${PORT_OPTIONS:MNLS}
 LOCALEDIR=	${LOCALBASE}/share/locale
 LANGUAGES=	ru
 ALL_TARGET=	nls
@@ -32,34 +33,33 @@ ALL_TARGET=	nls
 MAKE_ARGS+=	LOCALEDIR="" NLS_CFLAGS="" NLS_LDFLAGS=""
 .endif
 
-DFUIBE_LUA_DIR=	${PREFIX}/share/dfuibe_lua
-NO_STAGE=	yes
+DFUIBE_LUA_DIR=	${STAGEDIR}${PREFIX}/share/dfuibe_lua
 
 # Make it so that we don't have to build the parts we're not installing...
-MAKE_ARGS+= BUILD_QT_FRONTEND=false
+MAKE_ARGS+=	BUILD_QT_FRONTEND=false
 
 .if ${PORT_OPTIONS:MCGI}
-MAKE_ARGS+= BUILD_CGI_FRONTEND=true
+MAKE_ARGS+=	BUILD_CGI_FRONTEND=true
 .else
-MAKE_ARGS+= BUILD_CGI_FRONTEND=false
+MAKE_ARGS+=	BUILD_CGI_FRONTEND=false
 .endif
 
 .if ${PORT_OPTIONS:MCURSES}
-MAKE_ARGS+= BUILD_NCURSES_FRONTEND=true
+MAKE_ARGS+=	BUILD_NCURSES_FRONTEND=true
 .else
-MAKE_ARGS+= BUILD_NCURSES_FRONTEND=false
+MAKE_ARGS+=	BUILD_NCURSES_FRONTEND=false
 .endif
 
 .if ${PORT_OPTIONS:MC_BACKEND}
-MAKE_ARGS+= BUILD_C_BACKEND=true
+MAKE_ARGS+=	BUILD_C_BACKEND=true
 .else
-MAKE_ARGS+= BUILD_C_BACKEND=false
+MAKE_ARGS+=	BUILD_C_BACKEND=false
 .endif
 
 .if ${PORT_OPTIONS:MLUA_BACKEND}
-MAKE_ARGS+= BUILD_LUA_BACKEND=true
+MAKE_ARGS+=	BUILD_LUA_BACKEND=true
 .else
-MAKE_ARGS+= BUILD_LUA_BACKEND=false
+MAKE_ARGS+=	BUILD_LUA_BACKEND=false
 .endif
 
 # Don't strip executables if this is being built as a "debuggable" package.
@@ -68,8 +68,6 @@ STRIP=
 .endif
 
 ###### Packing list.
-PLIST_FILES=
-
 # libaura
 PLIST_FILES+=	lib/libaura.a			\
 		lib/libaura.so			\
@@ -107,7 +105,7 @@ PLIST_FILES+=	lib/libinstaller.a		\
 PLIST_FILES+=	sbin/dfuife_curses	\
 		share/dfuife_curses/fred.txt
 .if ${PORT_OPTIONS:MNLS}
-PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuife_curses.mo
+#PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuife_curses.mo
 .endif
 .endif
 
@@ -188,25 +186,44 @@ PLIST_FILES+=	share/lua/5.0/transceiver.lua
 PLIST_FILES+=	lib/lua/5.0/lcurses.so \
 		share/lua/5.0/curses.lua
 .endif
-
 # dfuibe_lua
 PLIST_FILES+=	share/dfuibe_lua/main.lua \
 		share/dfuibe_lua/200_install.lua \
 		share/dfuibe_lua/400_configure.lua \
+		share/dfuibe_lua/500_create_geom_mirror.lua \
 		share/dfuibe_lua/600_upgrade.lua \
 		share/dfuibe_lua/800_netboot.lua \
 		share/dfuibe_lua/950_reboot.lua \
 		share/dfuibe_lua/lib/bitwise.lua \
+		share/dfuibe_lua/lib/capacity.lua \
 		share/dfuibe_lua/lib/cmdchain.lua \
+		share/dfuibe_lua/lib/configfile.lua \
 		share/dfuibe_lua/lib/configvars.lua \
+		share/dfuibe_lua/lib/disk.lua \
 		share/dfuibe_lua/lib/flow.lua \
+		share/dfuibe_lua/lib/flowstep.lua \
+		share/dfuibe_lua/lib/installation.lua \
+		share/dfuibe_lua/lib/installationui.lua \
 		share/dfuibe_lua/lib/menu.lua \
+		share/dfuibe_lua/lib/menuitem.lua \
+		share/dfuibe_lua/lib/navcontainer.lua \
+		share/dfuibe_lua/lib/navleaf.lua \
 		share/dfuibe_lua/lib/network.lua \
 		share/dfuibe_lua/lib/network_ui.lua \
+		share/dfuibe_lua/lib/networkui.lua \
 		share/dfuibe_lua/lib/package.lua \
+		share/dfuibe_lua/lib/packagegraph.lua \
+		share/dfuibe_lua/lib/packagelist.lua \
+		share/dfuibe_lua/lib/packageset.lua \
+		share/dfuibe_lua/lib/packageui.lua \
 		share/dfuibe_lua/lib/package_ui.lua \
+		share/dfuibe_lua/lib/partition.lua \
 		share/dfuibe_lua/lib/storage.lua \
 		share/dfuibe_lua/lib/storage_ui.lua \
+		share/dfuibe_lua/lib/storagesystem.lua \
+		share/dfuibe_lua/lib/storagesystemui.lua \
+		share/dfuibe_lua/lib/storageui.lua \
+		share/dfuibe_lua/lib/subpartition.lua \
 		share/dfuibe_lua/lib/target_system.lua \
 		share/dfuibe_lua/lib/target_system_ui.lua \
 		share/dfuibe_lua/lib/uinav.lua \
@@ -266,9 +283,27 @@ PLIST_FILES+=	share/dfuibe_lua/main.lua \
 		share/dfuibe_lua/netboot/main.lua \
 		share/dfuibe_lua/netboot/500_setup_server.lua
 .if ${PORT_OPTIONS:MNLS}
-PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_lua.mo
+#PLIST_FILES+=	share/locale/ru/LC_MESSAGES/dfuibe_lua.mo
 .endif
 .endif # WITH_LUA
+
+PLIST_DIRSTRY=	include/aura \
+		include/dfui \
+		lib/lua/5.0 \
+		lib/lua/bsdinstaller-2.0.2014.0905 \
+		lib/lua \
+		share/dfuibe_lua/conf \
+		share/dfuibe_lua/configure/menu \
+		share/dfuibe_lua/configure \
+		share/dfuibe_lua/install \
+		share/dfuibe_lua/lib \
+		share/dfuibe_lua/netboot \
+		share/dfuibe_lua/pit \
+		share/dfuibe_lua/upgrade \
+		share/dfuibe_lua \
+		share/dfuife_curses \
+		share/lua/5.0 \
+		share/lua
 
 ##### Fetch
 
@@ -289,42 +324,42 @@ do-fetch:
 
 do-install:
 	echo "Installing libaura..."
-	${MKDIR} -p ${PREFIX}/include/aura
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/libaura.a ${PREFIX}/lib/
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/libaura.so.3 ${PREFIX}/lib/
-	${LN} -sf ${PREFIX}/lib/libaura.so.3 ${PREFIX}/lib/libaura.so
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/buffer.h ${PREFIX}/include/aura/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/dict.h ${PREFIX}/include/aura/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/popen.h ${PREFIX}/include/aura/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/fspred.h ${PREFIX}/include/aura/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/mem.h ${PREFIX}/include/aura/
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/aura
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/libaura.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/libaura.so.3 ${STAGEDIR}${PREFIX}/lib/
+	${LN} -sf ${PREFIX}/lib/libaura.so.3 ${STAGEDIR}${PREFIX}/lib/libaura.so
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/buffer.h ${STAGEDIR}${PREFIX}/include/aura/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/dict.h ${STAGEDIR}${PREFIX}/include/aura/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/popen.h ${STAGEDIR}${PREFIX}/include/aura/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/fspred.h ${STAGEDIR}${PREFIX}/include/aura/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libaura/mem.h ${STAGEDIR}${PREFIX}/include/aura/
 	echo "Installing libdfui..."
-	${MKDIR} -p ${PREFIX}/include/dfui
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/libdfui.a ${PREFIX}/lib/
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/libdfui.so.4 ${PREFIX}/lib/
-	${LN} -sf ${PREFIX}/lib/libdfui.so.4 ${PREFIX}/lib/libdfui.so
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/dfui.h ${PREFIX}/include/dfui/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/dump.h ${PREFIX}/include/dfui/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/lang.h ${PREFIX}/include/dfui/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/system.h ${PREFIX}/include/dfui/
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/dfui
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/libdfui.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/libdfui.so.4 ${STAGEDIR}${PREFIX}/lib/
+	${LN} -sf ${PREFIX}/lib/libdfui.so.4 ${STAGEDIR}${PREFIX}/lib/libdfui.so
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/dfui.h ${STAGEDIR}${PREFIX}/include/dfui/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/dump.h ${STAGEDIR}${PREFIX}/include/dfui/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/lang.h ${STAGEDIR}${PREFIX}/include/dfui/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libdfui/system.h ${STAGEDIR}${PREFIX}/include/dfui/
 .if ${PORT_OPTIONS:MC_BACKEND}
 	echo "Installing libinstaller..."
-	${MKDIR} -p ${PREFIX}/include/installer
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/libinstaller.a ${PREFIX}/lib/
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/libinstaller.so.5 ${PREFIX}/lib/
-	${LN} -sf ${PREFIX}/lib/libinstaller.so.5 ${PREFIX}/lib/libinstaller.so
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/commands.h ${PREFIX}/include/installer/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/confed.h ${PREFIX}/include/installer/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/diskutil.h ${PREFIX}/include/installer/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/functions.h ${PREFIX}/include/installer/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/package.h ${PREFIX}/include/installer/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/uiutil.h ${PREFIX}/include/installer/
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/installer
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/libinstaller.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/libinstaller.so.5 ${STAGEDIR}${PREFIX}/lib/
+	${LN} -sf ${PREFIX}/lib/libinstaller.so.5 ${STAGEDIR}${PREFIX}/lib/libinstaller.so
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/commands.h ${STAGEDIR}${PREFIX}/include/installer/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/confed.h ${STAGEDIR}${PREFIX}/include/installer/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/diskutil.h ${STAGEDIR}${PREFIX}/include/installer/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/functions.h ${STAGEDIR}${PREFIX}/include/installer/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/package.h ${STAGEDIR}${PREFIX}/include/installer/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/libinstaller/uiutil.h ${STAGEDIR}${PREFIX}/include/installer/
 .endif
 .if ${PORT_OPTIONS:MCURSES}
 	echo "Installing dfuife_curses..."
-	${MKDIR} -p ${PREFIX}/share/dfuife_curses
-	${INSTALL_PROGRAM} -o root -g wheel ${WRKSRC}/frontends/ncurses/dfuife_curses ${PREFIX}/sbin/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/frontends/ncurses/fred.txt ${PREFIX}/share/dfuife_curses/
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/dfuife_curses
+	${INSTALL_PROGRAM} -o root -g wheel ${WRKSRC}/frontends/ncurses/dfuife_curses ${STAGEDIR}${PREFIX}/sbin/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/frontends/ncurses/fred.txt ${STAGEDIR}${PREFIX}/share/dfuife_curses/
 .if ${PORT_OPTIONS:MNLS}
 	for _language in ${LANGUAGES}; do \
 		${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/frontends/ncurses/po/$${_language}.mo \
@@ -334,20 +369,20 @@ do-install:
 .endif
 .if ${PORT_OPTIONS:MCGI}
 	echo "Installing dfuife_cgi..."
-	${MKDIR} -p ${PREFIX}/www
-	${INSTALL_PROGRAM} ${WRKSRC}/frontends/cgi/dfuife.cgi ${PREFIX}/www
-	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfly-pg.gif ${PREFIX}/www
-	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/fred-bg.gif ${PREFIX}/www
-	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/fred.png ${PREFIX}/www
-	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfuife.css ${PREFIX}/www
-	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfuife.js ${PREFIX}/www
-	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/index.html ${PREFIX}/www
+	${MKDIR} ${STAGEDIR}${PREFIX}/www
+	${INSTALL_PROGRAM} ${WRKSRC}/frontends/cgi/dfuife.cgi ${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfly-pg.gif ${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/fred-bg.gif ${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/fred.png ${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfuife.css ${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/dfuife.js ${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${WRKSRC}/frontends/cgi/index.html ${STAGEDIR}${PREFIX}/www
 .endif
 .if ${PORT_OPTIONS:MC_BACKEND}
 	echo "Installing dfuibe_installer..."
-	${INSTALL_PROGRAM} -s -o root -g wheel -m 555 ${WRKSRC}/backend/installer/dfuibe_installer ${PREFIX}/sbin
-	${MKDIR} -p ${PREFIX}/share/dfuibe_installer
-	${INSTALL_DATA} -o root -g wheel -m 555 ${WRKSRC}/backend/installer/conf/cmdnames.conf ${PREFIX}/share/dfuibe_installer
+	${INSTALL_PROGRAM} -s -o root -g wheel -m 555 ${WRKSRC}/backend/installer/dfuibe_installer ${STAGEDIR}${PREFIX}/sbin
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/dfuibe_installer
+	${INSTALL_DATA} -o root -g wheel -m 555 ${WRKSRC}/backend/installer/conf/cmdnames.conf ${STAGEDIR}${PREFIX}/share/dfuibe_installer
 .if ${PORT_OPTIONS:MNLS}
 	for _language in ${LANGUAGES}; do \
 		${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/installer/po/$${_language}.mo \
@@ -357,57 +392,57 @@ do-install:
 .endif
 .if ${PORT_OPTIONS:MLUA_BACKEND}
 	echo "Installing lua50..."
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/platform/lua/lib/liblua50.so ${PREFIX}/lib/
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/platform/lua/lib/liblualib50.so ${PREFIX}/lib/
-	${INSTALL_PROGRAM} -o root -g wheel -m 555 ${WRKSRC}/platform/lua/bin/lua ${PREFIX}/bin/lua50
-	${INSTALL_PROGRAM} -o root -g wheel -m 555 ${WRKSRC}/platform/lua/bin/luac ${PREFIX}/bin/lua50c
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/platform/lua/lib/liblua50.so ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/platform/lua/lib/liblualib50.so ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_PROGRAM} -o root -g wheel -m 555 ${WRKSRC}/platform/lua/bin/lua ${STAGEDIR}${PREFIX}/bin/lua50
+	${INSTALL_PROGRAM} -o root -g wheel -m 555 ${WRKSRC}/platform/lua/bin/luac ${STAGEDIR}${PREFIX}/bin/lua50c
 	echo "Installing lua50-compat5.1..."
-	${MKDIR} -p ${PREFIX}/lib/lua/5.0
-	${MKDIR} -p ${PREFIX}/lib/lua/${DISTNAME}
-	${MKDIR} -p ${PREFIX}/share/lua/5.0
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/compat-5.1/compat-5.1.lua ${PREFIX}/share/lua/5.0
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/compat-5.1/compat-5.1.c ${PREFIX}/lib/lua/${DISTNAME}
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/compat-5.1/compat-5.1.h ${PREFIX}/lib/lua/${DISTNAME}
-	${INSTALL_SCRIPT} ${WRKSRC}/lib/lua/compat-5.1/lua50c51.sh ${PREFIX}/bin/lua50c51
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/lua/5.0
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/lua/${DISTNAME}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/lua/5.0
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/compat-5.1/compat-5.1.lua ${STAGEDIR}${PREFIX}/share/lua/5.0
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/compat-5.1/compat-5.1.c ${STAGEDIR}${PREFIX}/lib/lua/${DISTNAME}
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/compat-5.1/compat-5.1.h ${STAGEDIR}${PREFIX}/lib/lua/${DISTNAME}
+	${INSTALL_SCRIPT} ${WRKSRC}/lib/lua/compat-5.1/lua50c51.sh ${STAGEDIR}${PREFIX}/bin/lua50c51
 	echo "Installing lua50-POSIX..."
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/posix/lposix.so ${PREFIX}/lib/lua/5.0/
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/posix/posix.lua ${PREFIX}/share/lua/5.0/
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/posix/lposix.so ${STAGEDIR}${PREFIX}/lib/lua/5.0/
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/posix/posix.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/
 	echo "Installing lua50-pty..."
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/pty/lpty.so ${PREFIX}/lib/lua/5.0
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/pty/pty.lua ${PREFIX}/share/lua/5.0
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/pty/lpty.so ${STAGEDIR}${PREFIX}/lib/lua/5.0
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/pty/pty.lua ${STAGEDIR}${PREFIX}/share/lua/5.0
 	echo "Installing lua50-filename..."
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/filename/filename.lua ${PREFIX}/share/lua/5.0/filename.lua
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/filename/filename.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/filename.lua
 	echo "Installing lua50-app..."
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/app/app.lua ${PREFIX}/share/lua/5.0/app.lua
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/app/app.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/app.lua
 	echo "Installing lua50-dfui..."
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/dfui/ldfui.so ${PREFIX}/lib/lua/5.0/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/dfui/dfui.lua ${PREFIX}/share/lua/5.0/
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/dfui/ldfui.so ${STAGEDIR}${PREFIX}/lib/lua/5.0/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/dfui/dfui.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/
 	echo "Installing lua50-luasocket..."
-	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/luasocket/lsocket.so ${PREFIX}/lib/lua/5.0/
-	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/luasocket/lmime.so ${PREFIX}/lib/lua/5.0/
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/luasocket/lua/*.lua ${PREFIX}/share/lua/5.0/
+	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/luasocket/lsocket.so ${STAGEDIR}${PREFIX}/lib/lua/5.0/
+	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/luasocket/lmime.so ${STAGEDIR}${PREFIX}/lib/lua/5.0/
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/luasocket/lua/*.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/
 	echo "Installing lua50-transceiver..."
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/transceiver/transceiver.lua ${PREFIX}/share/lua/5.0/
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/transceiver/transceiver.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/
 .if ${PORT_OPTIONS:MCURSES}
 	echo "Installing lua50-lcurses..."
-	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/lcurses/lcurses.so ${PREFIX}/lib/lua/5.0
-	${INSTALL_DATA} ${WRKSRC}/lib/lua/lcurses/curses.lua ${PREFIX}/share/lua/5.0/
+	${INSTALL_PROGRAM} ${WRKSRC}/lib/lua/lcurses/lcurses.so ${STAGEDIR}${PREFIX}/lib/lua/5.0
+	${INSTALL_DATA} ${WRKSRC}/lib/lua/lcurses/curses.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/
 .endif
 .if ${PORT_OPTIONS:MNLS}
 	echo "Installing lua50-gettext..."
-	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/gettext/lgettext.so ${PREFIX}/lib/lua/5.0/
-	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/gettext/gettext.lua ${PREFIX}/share/lua/5.0/
+	${INSTALL_PROGRAM} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/gettext/lgettext.so ${STAGEDIR}${PREFIX}/lib/lua/5.0/
+	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/lib/lua/gettext/gettext.lua ${STAGEDIR}${PREFIX}/share/lua/5.0/
 .endif
 	echo "Installing dfuibe_lua..."
-	${MKDIR} -p ${DFUIBE_LUA_DIR}
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/lib
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/conf
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/pit
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/install
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/configure
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/configure/menu
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/upgrade
-	${MKDIR} -p ${DFUIBE_LUA_DIR}/netboot
+	${MKDIR} ${DFUIBE_LUA_DIR}
+	${MKDIR} ${DFUIBE_LUA_DIR}/lib
+	${MKDIR} ${DFUIBE_LUA_DIR}/conf
+	${MKDIR} ${DFUIBE_LUA_DIR}/pit
+	${MKDIR} ${DFUIBE_LUA_DIR}/install
+	${MKDIR} ${DFUIBE_LUA_DIR}/configure
+	${MKDIR} ${DFUIBE_LUA_DIR}/configure/menu
+	${MKDIR} ${DFUIBE_LUA_DIR}/upgrade
+	${MKDIR} ${DFUIBE_LUA_DIR}/netboot
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/*.lua ${DFUIBE_LUA_DIR}/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/lib/*.lua ${DFUIBE_LUA_DIR}/lib/
 	${INSTALL_DATA} -o root -g wheel -m 444 ${WRKSRC}/backend/lua/conf/*.lua ${DFUIBE_LUA_DIR}/conf/
@@ -425,17 +460,4 @@ do-install:
 .endif
 .endif # WITH_LUA_BACKEND
 
-OSTYPE!=sysctl -n kern.ostype
-
-.if ${OSTYPE} == "FreeBSD"
-.include <bsd.port.mk>
-.endif
-
-.if ${OSTYPE} == "DragonFly"
-.include <bsd.dfport.mk>
-.endif
-
-.if ${MACHINE_ARCH:L} == "amd64"
-CFLAGS+=        -fPIC
-.endif
-
+.include <bsd.port.post.mk>
