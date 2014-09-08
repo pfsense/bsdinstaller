@@ -293,7 +293,7 @@ PLIST_FILES+=	share/dfuibe_lua/main.lua \
 PLIST_DIRSTRY=	include/aura \
 		include/dfui \
 		lib/lua/5.0 \
-		lib/lua/bsdinstaller-2.0.2014.0905 \
+		lib/lua/bsdinstaller-${PORTVERSION} \
 		lib/lua \
 		share/dfuibe_lua/conf \
 		share/dfuibe_lua/configure/menu \
