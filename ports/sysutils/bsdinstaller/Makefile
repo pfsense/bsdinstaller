@@ -19,11 +19,7 @@ USE_LDCONFIG=	yes
 # Used by copy script
 INTERNAL=	YES
 
-.include <bsd.port.pre.mk>
-
-.if ${MACHINE_ARCH:L} == "amd64"
-CFLAGS+=	-fPIC
-.endif
+.include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MNLS}
 USES+=		gettext
@@ -307,6 +303,12 @@ PLIST_DIRSTRY=	include/aura \
 		share/dfuife_curses \
 		share/lua/5.0 \
 		share/lua
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "amd64"
+CFLAGS+=	-fPIC
+.endif
 
 ##### Fetch
 
