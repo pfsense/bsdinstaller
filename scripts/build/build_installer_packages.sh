@@ -71,16 +71,7 @@ rebuild_port()
 	make clean && rm -rf work
 }
 
-if [ -z $FREEBSD_VERSION ]; then
-               su root -c \
-                "pkg delete -yf 'libaura-*'
-                pkg delete -yf 'libinstaller-*'
-                pkg delete -yf '*dfui*'
-                pkg delete -yf 'thttpd-notimeout-*'
-                pkg delete -yf 'lua50-*'
-                pkg delete -yf 'bsdinstaller-*'"
-else
-        if [ $FREEBSD_VERSION -lt 9 ]; then
+if [ -n "${FREEBSD_VERSION}" -a "${FREEBSD_VERSION}" -lt 9 ]; then
                 su root -c \
                 "pkg_delete -f 'libaura-*'
                 pkg_delete -f 'libinstaller-*'
