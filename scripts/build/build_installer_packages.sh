@@ -87,7 +87,6 @@ if [ -n "${FREEBSD_VERSION}" -a "${FREEBSD_VERSION}" -lt 9 ]; then
                 pkg delete -yf 'thttpd-notimeout-*'
                 pkg delete -yf 'lua50-*'
                 pkg delete -yf 'bsdinstaller-*'"
-        fi
 fi
 
 if [ "X$REMOVEOLDPKGS" = "XYES" ]; then
