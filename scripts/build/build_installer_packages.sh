@@ -63,7 +63,7 @@ rebuild_port()
 	cd $PORTSDIR/$1/$2/			&& \
 	rm -rf work distinfo			&& \
 	make makesum				&& \
-	make patch				&& \
+	make -DBATCH patch			&& \
 	chmod -R 777 work			&& \
 	make -DBATCH options_UNSET="${options_UNSET}" options_SET="${options_SET}" $WITH_NLS_DEF $WITH_CURSES_DEF $WITH_CGI_DEF $WITH_QT_DEF \
 	     $WITH_LUA_BACKEND_DEF $WITH_C_BACKEND_DEF $WITH_DEBUG_DEF \
