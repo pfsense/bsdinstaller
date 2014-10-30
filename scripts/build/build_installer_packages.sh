@@ -67,26 +67,26 @@ rebuild_port()
 	chmod -R 777 work			&& \
 	make -DBATCH options_UNSET="${options_UNSET}" options_SET="${options_SET}" $WITH_NLS_DEF $WITH_CURSES_DEF $WITH_CGI_DEF $WITH_QT_DEF \
 	     $WITH_LUA_BACKEND_DEF $WITH_C_BACKEND_DEF $WITH_DEBUG_DEF \
-	     $PORTS_FLAGS package FORCE_PKG_REGISTER=yes && \
+	     $PORTS_FLAGS build package deinstall install FORCE_PKG_REGISTER=yes && \
 	make clean && rm -rf work
 }
 
-if [ $FREEBSD_VERSION -lt 9 ]; then
+if [ -n "${FREEBSD_VERSION}" -a "${FREEBSD_VERSION}" -lt 9 ]; then
 	su root -c \
-   	"pkg_delete -f 'libaura-*'
-    	pkg_delete -f 'libinstaller-*'
-    	pkg_delete -f '*dfui*'
-    	pkg_delete -f 'thttpd-notimeout-*'
-    	pkg_delete -f 'lua50-*'
-    	pkg_delete -f 'bsdinstaller-*'"
+	"pkg_delete -f 'libaura-*'
+	pkg_delete -f 'libinstaller-*'
+	pkg_delete -f '*dfui*'
+	pkg_delete -f 'thttpd-notimeout-*'
+	pkg_delete -f 'lua50-*'
+	pkg_delete -f 'bsdinstaller-*'"
 else
 	su root -c \
 	"pkg delete -yf 'libaura-*'
-    	pkg delete -yf 'libinstaller-*'
-    	pkg delete -yf '*dfui*'
-    	pkg delete -yf 'thttpd-notimeout-*'
-    	pkg delete -yf 'lua50-*'
-    	pkg delete -yf 'bsdinstaller-*'" 
+	pkg delete -yf 'libinstaller-*'
+	pkg delete -yf '*dfui*'
+	pkg delete -yf 'thttpd-notimeout-*'
+	pkg delete -yf 'lua50-*'
+	pkg delete -yf 'bsdinstaller-*'"
 fi
 
 if [ "X$REMOVEOLDPKGS" = "XYES" ]; then
