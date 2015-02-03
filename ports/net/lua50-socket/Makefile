@@ -3,10 +3,10 @@
 # Whom:					Chris Pressey
 
 PORTNAME=	lua50-socket
-PORTVERSION=	2.0.b3
+PORTVERSION=	2.0.2
 CATEGORIES=	net
-DISTNAME=	luasocket-2.0-beta3
-MASTER_SITES=	http://www.cs.princeton.edu/~diego/professional/luasocket/
+DISTNAME=	luasocket-2.0.2
+MASTER_SITES=	http://files.luaforge.net/releases/luasocket/luasocket/luasocket-2.0.2/luasocket-2.0.2.tar.gz
 
 COMMENT=	Socket binding for Lua 5.0.x (+5.1-compat)
 
@@ -25,7 +25,7 @@ PLIST_FILES=	lib/lua/5.0/lsocket.so		\
 		share/lua/5.0/url.lua
 
 USE_GMAKE=	YES
-NO_STAGE=	yes
+NO_STAGE=	YES
 MAKEFILE=	makefile.Linux
 
 do-install:
