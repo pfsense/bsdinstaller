@@ -74,9 +74,7 @@ post-install:
 	@${CAT} ${PKGMESSAGE}
 
 post-configure: config-message
-.if ${OSVERSION} > 502101
 	@cd ${WRKSRC} && patch < ${PATCHDIR}/extra-patch-config.h
-.endif
 
 post-build: config-message
 
