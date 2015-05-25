@@ -2121,7 +2121,9 @@ Storage.Partition.new = function(params)
 				spd:cmds_ensure_dev(cmds)
 				if spd:is_softupdated() and App.conf.has_softupdates then
 					cmds:add("${root}${NEWFS} -U ${root}dev/" ..
-					    spd:get_device_name())
+					    spd:get_device_name(),
+						 "${root}${TUNEFS} -j enable ${root}dev/" ..
+                                            spd:get_device_name() .. spd:get_letter())
 				else
 					cmds:add("${root}${NEWFS} ${root}dev/" ..
 					    spd:get_device_name())

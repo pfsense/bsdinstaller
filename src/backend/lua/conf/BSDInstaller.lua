@@ -436,6 +436,7 @@ cmd_names = {
 	MBRLABEL	= "sbin/mbrlabel",
 	NEWFS		= "sbin/newfs",
 	NEWFS_MSDOS	= "sbin/newfs_msdos",
+	TUNEFS		= "sbin/tunefs",
 	FDISK		= "sbin/fdisk",
 	DUMPON		= "sbin/dumpon",
 	IFCONFIG	= "sbin/ifconfig",
