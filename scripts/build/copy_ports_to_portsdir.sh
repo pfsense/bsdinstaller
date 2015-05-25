@@ -25,8 +25,10 @@ for CATEGORY in *; do
 		if [ "X$CATEGORY" != "XCVS" -a "X$PORT" != "X$CATEGORY/CVS" ]; then
 			rm -rf $PORTSDIR/$PORT
 			cp -Rp $PORT $PORTSDIR/$PORT
-			if grep -q '^INTERNAL[[:space:]]*=[[:space:]]*YES[[:space:]]*$' $PORT/Makefile; then
-				sed -i '' "s/PORTVERSION=[[:space:]]*\([^[:space:]]*\)[[:space:]]*$/PORTVERSION=\1${PVERSUFFIX}/" \
+			INTERNAL=$(make -C ${PORT} -V INTERNAL)
+			if [ "${INTERNAL}" = "YES" ]; then
+				sed -i '' \
+					"s/^PORTVERSION=.*$/PORTVERSION=	${INSTALLER_VER}${PVERSUFFIX}/" \
 				    $PORTSDIR/$PORT/Makefile
 			fi
 		fi
