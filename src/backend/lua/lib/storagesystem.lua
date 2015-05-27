@@ -2387,7 +2387,7 @@ Storage.Subpartition.new = function(params)
 	--
 	method.is_softupdated = function(self)
 		-- XXX this should be a property
-		return mountpoint ~= "/"
+		return true
 	end
 
 	--
