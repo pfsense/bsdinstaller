@@ -2123,7 +2123,7 @@ Storage.Partition.new = function(params)
 					cmds:add("${root}${NEWFS} -U -j ${root}dev/" ..
 					    spd:get_device_name(),
 						 "${root}${TUNEFS} -j enable ${root}dev/" ..
-					    spd:get_device_name() .. spd:get_letter())
+					    spd:get_device_name())
 				else
 					cmds:add("${root}${NEWFS} ${root}dev/" ..
 					    spd:get_device_name())
