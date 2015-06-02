@@ -478,7 +478,7 @@ fn_install_os(struct i_fn_args *a)
 	for (sp = slice_subpartition_first(storage_get_selected_slice(a->s));
 	     sp != NULL; sp = subpartition_next(sp)) {
 		if (strcmp(subpartition_get_mountpoint(sp), "/") == 0) {
-			command_add(cmds, "%s%s '/dev/%s\t\t%s\t\tufs\trw\t\t1\t1' >>%smnt/etc/fstab",
+			command_add(cmds, "%s%s '/dev/%s\t\t%s\t\tufs\trw,sync\t\t1\t1' >>%smnt/etc/fstab",
 			    a->os_root, cmd_name(a, "ECHO"),
 			    subpartition_get_device_name(sp),
 			    subpartition_get_mountpoint(sp),
@@ -496,7 +496,7 @@ fn_install_os(struct i_fn_args *a)
                                 mfsbacked_size,
                                 a->os_root);
 		} else {
-			command_add(cmds, "%s%s '/dev/%s\t\t%s\t\tufs\trw\t\t2\t2' >>%smnt/etc/fstab",
+			command_add(cmds, "%s%s '/dev/%s\t\t%s\t\tufs\trw,sync\t\t2\t2' >>%smnt/etc/fstab",
 			    a->os_root, cmd_name(a, "ECHO"),
 			    subpartition_get_device_name(sp),
 			    subpartition_get_mountpoint(sp),

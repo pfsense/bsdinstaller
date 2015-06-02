@@ -504,11 +504,11 @@ TargetSystem.new = function(tab)
 			}
 
 			if spd:get_mountpoint() == "/" then
-				cmds:add("${root}${ECHO} '/dev/${device}\t\t${mountpoint}\t\tufs\trw\t\t1\t1' >>${root}${base}/${filename}")
+				cmds:add("${root}${ECHO} '/dev/${device}\t\t${mountpoint}\t\tufs\trw,sync\t\t1\t1' >>${root}${base}/${filename}")
 			elseif spd:is_swap() then
 				cmds:add("${root}${ECHO} '/dev/${device}\t\tnone\t\tswap\tsw\t\t0\t0' >>${root}${base}/${filename}")
 			else
-				cmds:add("${root}${ECHO} '/dev/${device}\t\t${mountpoint}\t\tufs\trw\t\t2\t2' >>${root}${base}/${filename}")
+				cmds:add("${root}${ECHO} '/dev/${device}\t\t${mountpoint}\t\tufs\trw,sync\t\t2\t2' >>${root}${base}/${filename}")
 			end
 		end
 
@@ -601,11 +601,11 @@ TargetSystem.new = function(tab)
 					cmds:add("${root}${MKDIR} -p ${root}${base}${mtpt}")
 				end
 				fstype = "ufs"
-				opts = "rw"
+				opts = "rw,sync"
 				fstab[mtpt] = {
 				    device  = "/dev/" .. dev,
 				    fstype  = "ufs",
-				    options = "rw",
+				    options = "rw,sync",
 				    dump    = 2,
 				    pass    = 2
 				}
