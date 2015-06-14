@@ -2,7 +2,7 @@
 
 # $Id: make_installer_image.sh,v 1.6 2005/08/27 04:01:26 cpressey Exp $
 # Trivial driver script for the other four scripts.
-# Generally requires root privledges.
+# Generally requires root privileges.
 # Assumes a 'cd /usr/src/nrelease && make realquickrel'
 # (or equivalent) has recently been done.
 # Can be run multiple times thereafter.
@@ -14,7 +14,7 @@ SCRIPTDIR=`dirname $SCRIPT`
 . $SCRIPTDIR/build.conf.defaults
 
 # For the following to work, the directories in which the
-# ports, distfiles, and packages are placed must be writable by
+# ports, distfiles, and packages are placed must be writeable by
 # the user running the script.  This is generally not the case
 # for /usr/ports.  There are two general options:
 #  - run as root (NOT RECOMMENDED unless maybe you're in a jail)

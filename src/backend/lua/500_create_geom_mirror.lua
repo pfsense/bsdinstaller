@@ -56,7 +56,7 @@ return {
 	   req_state = { "storage" },
 	   effect = function(step)
 
-       -- Ask if user wnats a GEOM mirror to be created
+       -- Ask if user wants a GEOM mirror to be created
        local response = App.ui:present{
            name = _("GEOM Mirror"),
            short_desc = _("Would you like to setup a GEOM mirror? "),

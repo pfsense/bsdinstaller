@@ -58,7 +58,7 @@ form with some informative text, some fill-out fields, and some buttons.
 Another design constraint which was present from the beginning was that
 the system should be robust.  For this reason, we had the frontend
 (user interface component) and backend (install logic component) of
-the DFUI layer run in seperate UNIX processes.  If one process crashes,
+the DFUI layer run in separate UNIX processes.  If one process crashes,
 this does cause the other process to crash; in some instance, the
 first process can even be restarted, and the user can pick up where they
 left off.  (Ideally, of course, we want a system that never ever crashes
@@ -73,7 +73,7 @@ one of the nicer things about DragonFly's distribution is that it comes
 on a LiveCD which boots into a real version of the operating system,
 with all tools available.  We could, then, use these tools from the
 installer, without having to rewrite anything.  As a bonus, they would
-operate in seperate UNIX processes, isolated from crashes; and being
+operate in separate UNIX processes, isolated from crashes; and being
 standard BSD tools, the installation process would closely resemble the
 instructions in the README, and (hopefully) be less mysterious to
 anyone interested in how it works.
@@ -125,7 +125,7 @@ Future
 
 - Lua
 
-The "new" version of BSD Installer is built on C libarries and Lua.
+The "new" version of BSD Installer is built on C libraries and Lua.
 Lua is a great language that really allows for a lot of flexibility
 and customizations by 3rd parties wishing to utilize BSD Installer
 as the starting point for their project.  Work is actively ongoing

@@ -2,7 +2,7 @@
 
 # $Id: copy_ports_to_portsdir.sh,v 1.4 2005/08/25 23:51:40 cpressey Exp $
 # Copy the ports in our CVS tree to the system-wide ports directory.
-# This script generally requires root privledges.
+# This script generally requires root privileges.
 # create_installer_tarballs.sh should generally be run first.
 
 SCRIPT=`realpath $0`

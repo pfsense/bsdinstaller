@@ -4,9 +4,9 @@
 # Install X11 (X.org) packages onto the ISO-to-be using DragonFly's
 # src/nrelease/Makefile.  This assumes a release (or quickrel etc)
 # has already been built; it simply (re)installs packages.
-# This is seperate from the install_installer_packages script since
+# This is separate from the install_installer_packages script since
 # it takes a long time and only needs to be done once (per rel.)
-# Note that this generally requires root privledges.
+# Note that this generally requires root privileges.
 
 SCRIPT=`realpath $0`
 SCRIPTDIR=`dirname $SCRIPT`

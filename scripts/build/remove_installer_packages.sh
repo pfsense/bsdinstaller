@@ -2,7 +2,7 @@
 
 # $Id: remove_installer_packages.sh,v 1.4 2005/07/30 07:07:06 cpressey Exp $
 # Remove all BSD Installer packages from the running system.
-# Note that this generally requires root privledges.
+# Note that this generally requires root privileges.
 
 SCRIPT=`realpath $0`
 SCRIPTDIR=`dirname $SCRIPT`

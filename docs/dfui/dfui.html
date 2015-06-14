@@ -21,7 +21,7 @@ same UI.</p>
 
 <h2>Abstraction</h2>
 
-<p>The DFUI abstraction isolates the semantics of user interation from
+<p>The DFUI abstraction isolates the semantics of user interaction from
 the concrete details of it, similar to a <i>Model View Controller</i>
 abstraction.  Such a system is split into <i>frontend</i> and <i>backend</i>:
 
@@ -46,8 +46,8 @@ the frontend is concerned only with its <i>implementation</i>.</p>
 <p>The frontend may be constructed in almost any manner.  It may be a
 <code>curses</code> program, or it may be a CGI.  This presents a unique barrier, namely that the
 frontend might be either a single, long-running process <em>or</em> a series of short-running
-processes.  This essentially requires a concurrently design where the frontend and backend
-exist in seperate processes that exchange messages using IPC.</p>
+processes.  This essentially requires a concurrent design where the frontend and backend
+exist in separate processes that exchange messages using IPC.</p>
 
 <p>The contrast between the <code>curses</code> scenario and the CGI scenario
 is illustrated below.</p>
@@ -74,7 +74,7 @@ because it won't be clouded with installer details.
 <li>The frontend and backend don't have to be written in the same
 programming language (with some caveats; see below.)
 <li>We have the opportunity for the frontend and backend to work
-asymchronously (with some caveats; see below.)
+asynchronously (with some caveats; see below.)
 <li>We can use the same UI consistently for all tasks, rather than only in the installer.
 </ul></p>
 
@@ -294,7 +294,7 @@ which <code>present</code>s (i.e. the form id).</p>
 <p>However, in practice, while some UI's support concurrently displaying multiple
 UI elements in a natural fashion (typified by "windows",) others do not.  So to begin,
 we will limit ourselves by enforcing
-a sychronous discipline: each message from the backend must be replied by a reply from
+a synchronous discipline: each message from the backend must be replied by a reply from
 the frontend before the next message from the backend is sent.</p>
 
 <h3>The <code>present</code> Message</h3>
@@ -444,7 +444,7 @@ for a submit reply, and return the response in <code>r</code></p>
 </ul>
 
 <p>Notably, there are also functions for constructing <code>struct dfui_form</code>s and its
-brethren, and for intrerpreting and freeing <code>struct dfui_response</code>s.</p>
+brethren, and for interpreting and freeing <code>struct dfui_response</code>s.</p>
 
 <h3>Frontend</h3>
 
@@ -471,7 +471,7 @@ time if it is not NULL.</p>
 <p>Close the connection.</p>
 </ul>
 
-<p>Notably, there are also functions for intrerpreting <code>struct dfui_form</code>s et al,
+<p>Notably, there are also functions for interpreting <code>struct dfui_form</code>s et al,
 and for constructing and freeing <code>struct dfui_responses</code>s.</p>
 
 <h2>Implementation</h2>
