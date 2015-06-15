@@ -82,7 +82,7 @@ void		 fn_memtest(struct i_fn_args *);
 void		 view_memtest_log(struct i_fn_args *);
 void		 show_ifconfig(struct dfui_connection *, char *);
 
-/* LiveCD Utilties: Disk Utilities */
+/* LiveCD Utilities: Disk Utilities */
 
 char		*fn_select_file(const char *, const char *, const char *,
 				const char *, const char *, const char *,

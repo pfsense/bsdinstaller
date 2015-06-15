@@ -52,7 +52,7 @@ if [ "X$INSTALL_DFUIFE_QT" = "XYES" ]; then
 fi
 
 if [ "X$WITH_X11" = "XYES" ]; then
-	# Call the seperate script to install the X11 packages
+	# Call the separate script to install the X11 packages
 	# if they are not already there on the ISO-to-be.
 	sh $SCRIPTDIR/install_x11_packages.sh
 fi

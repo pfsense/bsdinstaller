@@ -286,7 +286,7 @@ fn_install_os(struct i_fn_args *a)
 	/*
 	 * Now, because cpdup does not cross mount points,
 	 * we must copy anything that the user might've made a
-	 * seperate mount point for (e.g. /usr/libdata/lint.)
+	 * separate mount point for (e.g. /usr/libdata/lint.)
 	 */
 	for (sp = slice_subpartition_first(storage_get_selected_slice(a->s));
 	     sp != NULL; sp = subpartition_next(sp)) {
@@ -541,7 +541,7 @@ fn_install_os(struct i_fn_args *a)
 	commands_free(cmds);
 
 	/*
-	 * Unmount everything we mounted on /mnt.  This is done in a seperate
+	 * Unmount everything we mounted on /mnt.  This is done in a separate
 	 * command chain, so that partitions are unmounted, even if an error
 	 * occurs in one of the preceding commands, or it is cancelled.
 	 */

@@ -142,7 +142,7 @@ extern cgiFormResultType cgiFormRadio(
 	int *result, int defaultV);	
 
 /* The paths returned by this function are the original names of files
-	as reported by the uploading web browser and shoult NOT be
+	as reported by the uploading web browser and should NOT be
 	blindly assumed to be "safe" names for server-side use! */
 extern cgiFormResultType cgiFormFileName(
 	char *name, char *result, int max);
